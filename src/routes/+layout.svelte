@@ -2,4 +2,18 @@
 	import '../app.css';
 </script>
 
-<slot />
+<svelte:head>
+	<title>VirDx</title>
+	<meta name="description" content="VirDx" />
+</svelte:head>
+<main class="mx-auto w-4/5 md:w-2/3 py-8 px-4">
+	<slot />
+</main>
+
+<style>
+	:global(body) {
+		margin: 0;
+		padding: 0;
+		font-family: system-ui, sans-serif;
+	}
+</style>

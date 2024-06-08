@@ -1,27 +1,37 @@
 <script>
 	import { reveal } from 'svelte-reveal';
+	import { CSS3DRenderer } from 'three/addons/renderers/CSS3DRenderer.js';
+	import { onMount } from 'svelte';
+	import { createScene } from '$lib/scene';
+
+	let el;
+
+	onMount(() => {
+		createScene(el);
+	});
 </script>
 
-<div
-	class="fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-purple-500 to-pink-500"
-></div>
+<canvas
+	bind:this={el}
+	class="touch-none fixed top-0 left-0 w-screen h-screen bg-gradient-to-b from-purple-500 to-pink-500"
+/>
 <div class="flex flex-col items-center gap-y-8 md:gap-y-12">
-	<div class="w-full md:w-2/3">
-		<div use:reveal={{ transition: 'slide' }} class="section h-[80vh] transform-gpu mb-8 md:mb-12">
+	<div class="w-full md:w-3/4">
+		<div use:reveal={{ transition: 'slide' }} class="section">
 			<h2 class="text-3xl md:text-5xl">
 				An <em>in vivo</em> spatial microscope for the future of medicine.
 			</h2>
 			<div class="content">
 				<p>What if there was a way to examine <em>living tissues</em> inside our bodies?</p>
 				<p>
-					Microscopes have opened the door to countless biomedical advances, but they’ve never been
+					Microscopes have opened the door to countless biomedical advances, but they've never been
 					able to see inside a living person.
 				</p>
-				<p>We’re building one that <strong>can.</strong></p>
+				<p>We're building one that <strong>can.</strong></p>
 			</div>
 		</div>
 
-		<div use:reveal={{ transition: 'slide' }} class="section h-[80vh] transform-gpu mb-8 md:mb-12">
+		<div use:reveal={{ transition: 'slide' }} class="section">
 			<h2 class="text-3xl md:text-5xl">Seeing with water</h2>
 			<div class="content">
 				<p>The human body contains more than one billion billion billion molecules of water.</p>
@@ -34,14 +44,17 @@
 					scans—but not by the human eye.
 				</p>
 				<p>
-					We’re building an ML-powered, biophysically-grounded <em>in vivo</em> imaging platform that
-					combines the promise of microscopy with the safety of MRI, and taps into the world’s existing
+					We're building an ML-powered, biophysically-grounded <em>in vivo</em> imaging platform that
+					combines the promise of microscopy with the safety of MRI, and taps into the world's existing
 					MRI infrastructure to help drive the healthcare advances of the 21st century.
 				</p>
 			</div>
 		</div>
 
-		<div use:reveal={{ transition: 'slide' }} class="section h-[80vh] transform-gpu mb-8 md:mb-12">
+		<div
+			use:reveal={{ transition: 'slide' }}
+			class="section h-[80vh] flex flex-col items-center justify-center transform-gpu mb-8 md:mb-12"
+		>
 			<h2 class="text-3xl md:text-5xl">How it works</h2>
 			<div class="content">
 				<p>
@@ -51,10 +64,7 @@
 				</p>
 			</div>
 			<div class="flex flex-col md:flex-row gap-y-4 md:gap-x-6">
-				<div
-					use:reveal={{ transition: 'slide', delay: 200, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 200, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Biophysical simulation platform</h3>
 					<div class="content">
 						<h3>Diffusion signature prediction</h3>
@@ -69,10 +79,7 @@
 						</p>
 					</div>
 				</div>
-				<div
-					use:reveal={{ transition: 'slide', delay: 400, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 400, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Customized MRI protocols</h3>
 					<div class="content">
 						<p>
@@ -82,10 +89,7 @@
 						</p>
 					</div>
 				</div>
-				<div
-					use:reveal={{ transition: 'slide', delay: 600, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 600, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Integrated Ground Truth Framework</h3>
 					<div class="content">
 						<p>
@@ -98,7 +102,7 @@
 			</div>
 		</div>
 
-		<div use:reveal={{ transition: 'slide' }} class="section h-[80vh] transform-gpu mb-8 md:mb-12">
+		<div use:reveal={{ transition: 'slide' }} class="section">
 			<h2 class="text-3xl md:text-5xl">Focal Application</h2>
 			<div class="content">
 				<h3>Non-Invasive Prostate Cancer Diagnostics</h3>
@@ -111,11 +115,11 @@
 					and economic toll every year.
 				</p>
 				<p>
-					We’re working to change that by placing a non-invasive prostate cancer diagnostic tool at
+					We're working to change that by placing a non-invasive prostate cancer diagnostic tool at
 					the heart of our platform development.
 				</p>
 				<p>
-					We’re partnering with radiologists and urologists in the U.S. and Germany to collect
+					We're partnering with radiologists and urologists in the U.S. and Germany to collect
 					histopathology and MRI data perfectly co-registered using our proprietary ground truth
 					framework to fine-tune our models, fix the leaky diagnostic pipeline, and transform
 					diagnosis and surveillance for this all-too-common disease.
@@ -123,7 +127,10 @@
 			</div>
 		</div>
 
-		<div use:reveal={{ transition: 'slide' }} class="section h-[80vh] transform-gpu mb-8 md:mb-12">
+		<div
+			use:reveal={{ transition: 'slide' }}
+			class="section h-[80vh] flex flex-col items-center justify-center transform-gpu mb-8 md:mb-12"
+		>
 			<h2 class="text-3xl md:text-5xl">Possible Futures</h2>
 			<div class="content">
 				<h3>Mapping the future of digital medicine</h3>
@@ -134,37 +141,25 @@
 				</p>
 			</div>
 			<div class="flex flex-col md:flex-row gap-y-4 md:gap-x-6">
-				<div
-					use:reveal={{ transition: 'slide', delay: 200, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 200, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Precision medicine</h3>
 					<div class="content">
-						<p>First-class decision support based on a patient’s unique internal landscape</p>
+						<p>First-class decision support based on a patient's unique internal landscape</p>
 					</div>
 				</div>
-				<div
-					use:reveal={{ transition: 'slide', delay: 400, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 400, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Regenerative medicine</h3>
 					<div class="content">
 						<p>Novel monitoring capabilities for tissue growth and repair</p>
 					</div>
 				</div>
-				<div
-					use:reveal={{ transition: 'slide', delay: 600, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 600, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Computational biology</h3>
 					<div class="content">
 						<p><em>In silico</em> biophysical simulations to unravel complex disease mechanisms</p>
 					</div>
 				</div>
-				<div
-					use:reveal={{ transition: 'slide', delay: 800, reset: true }}
-					class="sub-section transform-gpu mb-8 md:mb-12"
-				>
+				<div use:reveal={{ transition: 'slide', delay: 800, reset: true }} class="sub-section">
 					<h3 class="text-2xl md:text-3xl">Digital twins</h3>
 					<div class="content">
 						<p>
@@ -176,7 +171,7 @@
 			</div>
 		</div>
 
-		<div use:reveal={{ transition: 'slide' }} class="section h-[80vh] transform-gpu mb-8 md:mb-12">
+		<div use:reveal={{ transition: 'slide' }} class="section">
 			<h2 class="text-3xl md:text-5xl">Who We Are</h2>
 			<div class="content">
 				<p>
@@ -184,12 +179,17 @@
 					economists dreaming of a world where seeing the building blocks of the human body opens up
 					new pathways to healing it.
 				</p>
-				<aside>💡 We’re looking for team members+collaborators+funders</aside>
+				<aside>We’re looking for team members+collaborators+funders</aside>
 			</div>
 		</div>
 	</div>
 </div>
 
 <style>
-	/* your styles here */
+	.section {
+		@apply h-[80vh] flex items-center justify-center transform-gpu mb-8 md:mb-12;
+	}
+	.sub-section {
+		@apply transform-gpu mb-8 md:mb-12;
+	}
 </style>
