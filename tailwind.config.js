@@ -1,8 +1,15 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
+	darkMode: ['class', '[data-mode="dark"]'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				body: ['Halvar', 'sans-serif'],
+				display: ['Gridlite', 'sans-serif']
+			}
+		}
 	},
 	plugins: []
 };

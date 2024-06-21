@@ -1,3 +1,9 @@
+<script context="module">
+	if (typeof window !== 'undefined' && !('IntersectionObserver' in window)) {
+		import('intersection-observer');
+	}
+</script>
+
 <script>
 	import '../app.css';
 </script>
@@ -9,11 +15,3 @@
 <main class="mx-auto w-4/5 md:w-2/3 py-8 px-4">
 	<slot />
 </main>
-
-<style>
-	:global(body) {
-		margin: 0;
-		padding: 0;
-		font-family: system-ui, sans-serif;
-	}
-</style>

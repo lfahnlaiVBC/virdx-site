@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+	font-family: 'Gridlite';
+	src: url('/fonts/gridlite.ttf') format('opentype');
+}
+@font-face {
+	font-family: 'Halvar';
+	src: url('/fonts/halvar.ttf') format('opentype');
+}
+@layer base {
+	p,
+	body {
+		@apply font-body font-light;
+	}
+	h1 {
+		@apply text-5xl font-display;
+	}
+	h2 {
+		@apply text-xl md:text-2xl font-body font-light uppercase;
+	}
+}
+@layer components {
+	.section {
+		@apply h-[80vh] flex flex-col items-center justify-center transform-gpu;
+	}
+	.subsection {
+		@apply transform-gpu;
+	}
+}
+:root {
+	--font-wght-g: 300;
+	--font-elsh-g: 4;
+	--font-wght-h: 400;
+	--font-wdth-h: 100;
+	--font-slnt-h: 0;
+}
+.gridlite {
+	font-variation-settings:
+		'wght' var(--font-wght-g),
+		'elsh' var(--font-elsh-g);
+}
+.halvar {
+	font-variation-settings:
+		'wght' var(--font-wght-h),
+		'wdth' var(--font-wdth-h),
+		'slnt' var(--font-slnt-h);
+}
