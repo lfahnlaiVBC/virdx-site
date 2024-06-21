@@ -63,6 +63,10 @@
 			<div>
 				<p>What if there was a way to examine <em>living tissues</em> inside our bodies?</p>
 				<p>
+					MRI scans can non-invasively reveal hidden structures but lack the resolution to
+					positively discern specific tissues.
+				</p>
+				<p>
 					Microscopes have opened the door to countless biomedical advances, but they've never been
 					able to see inside a living person.
 				</p>
@@ -96,9 +100,9 @@
 			<h1>How it works</h1>
 			<div>
 				<p>
-					Our <em>in vivo</em> spatial microscopy platform generates pioneering magnetic resonance histology
-					brings together a cutting-edge biophysical simulation platform, customized MRI protocols, and
-					a rigorous, clinically-validated ground truth framework.
+					Our <em>in vivo</em> spatial microscopy platform combines a cutting-edge biophysical simulation
+					platform, customized MRI protocols, and a rigorous, clinically-validated ground truth framework
+					to generate pioneering synthetic histology.
 				</p>
 			</div>
 			<div class="flex flex-col md:flex-row gap-y-4 md:gap-x-6">
@@ -107,10 +111,10 @@
 					<div>
 						<h3>Diffusion signature prediction</h3>
 						<p>
-							Groundbreaking biophysical models simulate the distinct magnetic resonance profiles of
-							different tissues.
+							Groundbreaking biophysical models simulate the distinct MRI profiles of different
+							tissues.
 						</p>
-						<h3>Magnetic resonance tissue typing</h3>
+						<h3>MRI tissue typing</h3>
 						<p>
 							Diffusion-aware classifier models resolve MRI signatures into detailed tissue maps
 							that reveal salient histological features at the mesoscopic scale.
@@ -118,12 +122,12 @@
 					</div>
 				</div>
 				<div class="sub-section">
-					<h2>Customized MRI protocols</h2>
+					<h2>Next-Generation MRI sensing</h2>
 					<div>
 						<p>
-							Our models are honed on data from our proprietary algorithm-ready, information-dense
-							MRI protocols, optimized to yield additional data for machine learning in addition to
-							contrast visualization.
+							Proprietary MRI protocols are optimized for machine learning and engineered for broad
+							compatibility, allowing the vast network of existing MRI scanners to be upgraded into
+							real-world histological sensors.
 						</p>
 					</div>
 				</div>
@@ -133,7 +137,7 @@
 						<p>
 							Fusing 3D bioengineering and next-generation computational registration, our patented
 							ground truth pipeline achieves superior model accuracy and reliability by ensuring
-							spatial alignment between histopathology and MRI datasets.
+							perfect spatial alignment between histopathology and MRI datasets.
 						</p>
 					</div>
 				</div>
@@ -141,26 +145,30 @@
 		</div>
 
 		<div class="section">
-			<h1>Focal Application</h1>
+			<h1>Core Application</h1>
 			<div>
 				<h2>Non-Invasive Prostate Cancer Diagnostics</h2>
 				<p>
-					1 in 8 prostate glands will develop cancer at some point, yet prostate biopsies are both
-					risky and notoriously inaccurate.
+					1 in 8 prostate glands will develop cancer at some point, but diagnostic biopsies are both
+					risky and imprecise.
 				</p>
 				<p>
 					Missed tumors, unnecessary treatment, and biopsy complications exact a staggering human
 					and economic toll every year.
 				</p>
 				<p>
-					We're working to change that by placing a non-invasive prostate cancer diagnostic tool at
-					the heart of our platform development.
+					VirDx is working to change that by developing our platform around a non-invasive prostate
+					cancer diagnostic tool.
 				</p>
 				<p>
-					We're partnering with radiologists and urologists in the U.S. and Germany to collect
-					histopathology and MRI data perfectly co-registered using our proprietary ground truth
-					framework to fine-tune our models, fix the leaky diagnostic pipeline, and transform
-					diagnosis and surveillance for this all-too-common disease.
+					With our partners in radiology and urology across the U.S. and Germany, we're using our
+					proprietary ground truth framework to hone our models on the highest possible standard of
+					histopathological and MRI data.
+				</p>
+				<p>
+					By creating a non-invasive option for detecting and monitoring tumors, we're helping
+					clinicians fix the leaky diagnostic pipeline, improve patients' care experience, and
+					transform treatment and surveillance for this all-too-common disease.
 				</p>
 			</div>
 		</div>
@@ -200,7 +208,7 @@
 					<h2>Digital twins</h2>
 					<div>
 						<p>
-							Leveraging MRI scanners as real-world sensors for updating virtual patient models and
+							Leveraging MRI scanners as real-world sensors for updating patient models and
 							forecasting therapeutic outcomes
 						</p>
 					</div>

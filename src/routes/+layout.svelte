@@ -1,9 +1,3 @@
-<script context="module">
-	if (typeof window !== 'undefined' && !('IntersectionObserver' in window)) {
-		import('intersection-observer');
-	}
-</script>
-
 <script>
 	import '../app.css';
 </script>
