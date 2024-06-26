@@ -18,6 +18,13 @@
 	});
 </script>
 
+<!-- todo: 
+ text animation as sections
+ water droplet animation
+ figure out foreground background thingx
+ 
+-->
+
 <div class="fixed top-4 left-4 z-10 bg-white p-2 rounded">
 	<input type="range" min="0" max="1" step="0.01" bind:value={progress} />
 	<span>{progress.toFixed(2)}</span>
