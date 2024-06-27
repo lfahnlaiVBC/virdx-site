@@ -8,6 +8,9 @@ export default {
 			fontFamily: {
 				body: ['Halvar', 'sans-serif'],
 				display: ['Gridlite', 'sans-serif']
+			},
+			fontVariationSettings: {
+				wght: 'var(--font-wght-g)'
 			}
 		}
 	},
