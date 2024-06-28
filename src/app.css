@@ -22,12 +22,6 @@
 	}
 }
 @layer components {
-	.section {
-		@apply h-[80vh] flex flex-col items-center justify-center transform-gpu;
-	}
-	.subsection {
-		@apply transform-gpu;
-	}
 }
 :root {
 	--font-wght-g: 300;

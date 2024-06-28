@@ -7,6 +7,18 @@
 	export let progress = 0;
 	let index = 0;
 	let count = 0;
+
+	let sections = [];
+	$: totalSections = sections.length;
+
+	const registerSection = (section) => {
+		sections = [...sections, section];
+		return {
+			destroy: () => {
+				sections = sections.filter((s) => s !== section);
+			}
+		};
+	};
 </script>
 
 <Scroller {top} {bottom} {threshold} {parallax} bind:progress bind:index bind:count>
@@ -14,6 +26,6 @@
 		<slot name="background" {progress} {index} {count} />
 	</div>
 	<div slot="foreground">
-		<slot name="foreground" {progress} {index} {count} />
+		<slot name="foreground" {progress} {index} {count} {totalSections} {registerSection} />
 	</div>
 </Scroller>
