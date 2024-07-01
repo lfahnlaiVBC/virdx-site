@@ -66,8 +66,8 @@
     "@threlte/theatre": "^2.1.7",
     "@types/three": "^0.165.0",
     "intersection-observer": "^0.12.2",
+    "marked": "^13.0.1",
     "path": "^0.12.7",
-    "svelte-inview": "^4.0.2",
     "three": "^0.165.0"
   }
 }
