@@ -65,7 +65,6 @@
     "@threlte/rapier": "^2.0.0",
     "@threlte/theatre": "^2.1.7",
     "@types/three": "^0.165.0",
-    "fs": "^0.0.1-security",
     "intersection-observer": "^0.12.2",
     "path": "^0.12.7",
     "svelte-inview": "^4.0.2",
