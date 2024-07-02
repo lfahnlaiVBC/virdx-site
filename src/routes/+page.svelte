@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Canvas, T } from '@threlte/core';
-	import IntroScene from '$lib/components/scenes/IntroScene.svelte';
-	import WaterScene from '$lib/components/scenes/WaterScene.svelte';
 	import TextSection from '$lib/components/TextSection.svelte';
 	import { progressStore, updateProgress } from '$lib/stores/progressStore';
+	import { triggerStore } from '$lib/stores/triggerStore';
+
 	import sections from '$lib/sections';
 	import Team from '$lib/components/Team.svelte';
 	let teamData;
@@ -49,8 +49,6 @@
 
 	$: processedSections = sections.map(processSection);
 
-	const scenes = [{ component: IntroScene }, { component: WaterScene }];
-
 	const handleScroll = () => {
 		if (typeof window !== 'undefined') {
 			updateProgress(
@@ -64,15 +62,18 @@
 	onMount(() => {
 		window.addEventListener('scroll', handleScroll);
 		handleScroll();
-		return () => window.removeEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			triggerStore.reset();
+		};
 	});
 	onMount(async () => {
 		const response = await fetch('/api/teamData');
 		teamData = await response.json();
 	});
-	$: console.log(
-		`current: ${$progressStore.currentProgress} overall: ${$progressStore.overallProgress} `
-	);
+	// $: console.log(
+	// 	`current: ${$progressStore.currentProgress} overall: ${$progressStore.overallProgress} `
+	// );
 </script>
 
 <div class="flex flex-col md:flex-row min-h-screen">
@@ -86,8 +87,8 @@
 			<T.OrthographicCamera makeDefault position={[0, 0, 10]} zoom={100} />
 			<T.DirectionalLight position={[5, 5, 5]} intensity={1} />
 			<T.AmbientLight intensity={0.5} />
-			{#each scenes as scene, i}
-				<svelte:component this={scene.component} sceneIndex={i} />
+			{#each sections as section, i}
+				<svelte:component this={section.scene} sceneIndex={i} />
 			{/each}
 		</Canvas>
 	</div>

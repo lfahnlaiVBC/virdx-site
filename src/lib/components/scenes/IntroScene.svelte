@@ -4,6 +4,7 @@
 	import { AdditiveBlending, DoubleSide } from 'three';
 	import { spring } from 'svelte/motion';
 	import { progressStore } from '$lib/stores/progressStore';
+	import { triggerStore } from '$lib/stores/triggerStore';
 
 	export let sceneIndex = 0;
 	const visibility = spring(1);
@@ -11,6 +12,30 @@
 	const cubeColor = spring({ r: 0.2, g: 0.6, b: 0.9 });
 	const histoZoom = spring(1);
 	const logoMaskZoom = spring(1);
+	$: {
+		console.log('Active trigger:', $triggerStore);
+		handleTrigger($triggerStore);
+	}
+
+	function handleTrigger(event: string | null) {
+		if (event === null) {
+			// Reset all animations or effects
+			console.log('No active trigger');
+		} else {
+			console.log('Handling trigger:', event);
+			switch (event) {
+				case 'revealEvent':
+					console.log('Reveal event triggered');
+					// Add your reveal event logic here
+					break;
+				case 'biomedicalEvent':
+					console.log('Biomedical event triggered');
+					// Add your biomedical event logic here
+					break;
+				// Add more cases as needed
+			}
+		}
+	}
 
 	$: {
 		const { overallProgress, totalSections } = $progressStore;

@@ -1,3 +1,5 @@
+import IntroScene from '$lib/components/scenes/IntroScene.svelte';
+import WaterScene from '$lib/components/scenes/WaterScene.svelte';
 const sections = [
 	{
 		title: 'An *in vivo* spatial microscope for the future of medicine.',
@@ -6,7 +8,12 @@ const sections = [
 			'MRI scans can non-invasively reveal hidden structures but lack the resolution to positively discern specific tissues.',
 			"Microscopes have opened the door to countless biomedical advances, but they've never been able to see inside a living person.",
 			"We're building one that **can**."
-		]
+		],
+		scene: IntroScene,
+		triggers: {
+			'living tissues': 'revealEvent',
+			'biomedical advances': 'biomedicalEvent'
+		}
 	},
 	{
 		title: 'Seeing with water',
@@ -15,7 +22,12 @@ const sections = [
 			'The architecture of body tissues determines how freely water molecules are able to move through them.',
 			'This gives each tissue a distinct **diffusion signature** recognizable on MRI scans—but not by the human eye.',
 			"We're building an ML-powered, biophysically-grounded *in vivo* imaging platform that combines the promise of microscopy with the safety of MRI, and taps into the world's existing MRI infrastructure to help drive the healthcare advances of the 21st century."
-		]
+		],
+		scene: WaterScene,
+		triggers: {
+			'billion billion': 'waterEvent',
+			'diffusion signature': 'diffusionEvent'
+		}
 	},
 	{
 		title: 'How it works',
