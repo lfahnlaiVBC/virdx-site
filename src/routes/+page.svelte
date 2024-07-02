@@ -92,7 +92,10 @@
 		</Canvas>
 	</div>
 	<div class="w-full flex flex-col items-center fixed bg-black bg-opacity-50">
-		<h1 class="text-5xl font-bold mb-4 text-white gridlite">
+		<h1
+			class="text-5xl font-bold mb-4 text-white gridlite"
+			style="--font-wght-g: {Math.floor(50 + $progressStore.currentProgress * 400)};"
+		>
 			{@html processedSections[$progressStore.currentSectionIndex].title}
 		</h1>
 
