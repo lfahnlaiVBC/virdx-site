@@ -6,7 +6,6 @@
 
 	export let animationId;
 	export let progress;
-	export let overallProgress = 0;
 	export let index = 0;
 	export let count = 1;
 
@@ -15,11 +14,12 @@
 	const blobOpacity = spring(0);
 	const cubeColor = spring({ r: 0.2, g: 0.6, b: 0.9 });
 	const sphereZoom = spring(1);
+	const histoZoom = spring(1);
+	const logoMaskZoom = spring(1);
 
 	$: {
 		updateAnimation(animationId, progress);
 	}
-
 	function updateAnimation(id, prog) {
 		switch (id) {
 			case 'introScene':
@@ -27,6 +27,8 @@
 				blobOpacity.set(prog * 0.6);
 				cubeColor.set({ r: 0.2 + prog * 0.3, g: 0.6 - prog * 0.3, b: 0.9 - prog * 0.3 });
 				sphereZoom.set(1 + prog * 0.6);
+				histoZoom.set(1 + prog * 4);
+				logoMaskZoom.set(prog < 0.45 ? 1 : prog > 0.5 ? 0.05 : 1 - (prog - 0.45) * 20);
 				break;
 			case 'waterScene':
 				planeOpacity.set(1 - prog * 0.6);
@@ -39,13 +41,10 @@
 				blobOpacity.set(0);
 				cubeColor.set({ r: 0.2, g: 0.6, b: 0.9 });
 				sphereZoom.set(1);
+				histoZoom.set(1);
+				logoMaskZoom.set(1);
 		}
 	}
-
-	$: meshZoomLevel = 1 + overallProgress * 4;
-	$: maskZoomLevel =
-		overallProgress < 0.45 ? 1 : overallProgress > 0.5 ? 0.05 : 1 - (overallProgress - 0.45) * 20;
-	$: sphereZoomLevel = 1 + overallProgress * 2;
 </script>
 
 <div class={$$restProps.class}>
@@ -54,7 +53,7 @@
 		<T.DirectionalLight position={[5, 5, 5]} intensity={1} />
 		<T.AmbientLight intensity={0.5} />
 
-		<T.Group scale={[meshZoomLevel, meshZoomLevel, 1]}>
+		<T.Group scale={[$histoZoom, $histoZoom, 1]}>
 			<T.Mesh rotation.z={0}>
 				<T.PlaneGeometry args={[20, 20]} />
 				{#await useTexture('/BMD_histology.jpg') then texture}
@@ -69,7 +68,7 @@
 			</T.Mesh>
 		</T.Group>
 
-		<T.Group scale={[maskZoomLevel, maskZoomLevel, 1]}>
+		<T.Group scale={[$logoMaskZoom, $logoMaskZoom, 1]}>
 			<T.Mesh rotation.z={0}>
 				<T.PlaneGeometry args={[15, 15]} />
 				{#await useTexture('/logo_white.svg') then logo}
