@@ -3,11 +3,11 @@
 @tailwind utilities;
 @font-face {
 	font-family: 'Gridlite';
-	src: url('/fonts/gridlite.ttf') format('opentype');
+	src: url('/fonts/gridlite.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'Halvar';
-	src: url('/fonts/halvar.ttf') format('opentype');
+	src: url('/fonts/halvar.ttf') format('truetype');
 }
 @layer base {
 	p,

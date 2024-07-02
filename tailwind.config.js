@@ -6,6 +6,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
+				sans: ['Halvar', 'sans-serif'],
 				body: ['Halvar', 'sans-serif'],
 				display: ['Gridlite', 'sans-serif']
 			},
