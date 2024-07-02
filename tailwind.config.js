@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require('tailwindcss/plugin');
+import { gridlite, halvar } from './static/fonts/metrics.js';
+
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	darkMode: ['class', '[data-mode="dark"]'],
@@ -12,8 +14,15 @@ export default {
 			},
 			fontVariationSettings: {
 				wght: 'var(--font-wght-g)'
+			},
+			capsize: {
+				metrics: {
+					sans: halvar,
+					body: halvar,
+					display: gridlite
+				}
 			}
 		}
 	},
-	plugins: []
+	plugins: [require('@asyarb/tailwind-capsize')]
 };

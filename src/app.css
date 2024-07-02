@@ -4,21 +4,23 @@
 @font-face {
 	font-family: 'Gridlite';
 	src: url('/fonts/gridlite.ttf') format('truetype');
+	font-display: swap;
 }
 @font-face {
 	font-family: 'Halvar';
 	src: url('/fonts/halvar.ttf') format('truetype');
+	font-display: swap;
 }
 @layer base {
 	p,
 	body {
-		@apply font-body font-light;
+		@apply font-body font-light capsize;
 	}
 	h1 {
-		@apply text-5xl font-display;
+		@apply text-5xl font-display capsize;
 	}
 	h2 {
-		@apply text-xl md:text-2xl font-body font-light uppercase;
+		@apply text-xl md:text-2xl font-body font-light uppercase capsize;
 	}
 }
 @layer components {
