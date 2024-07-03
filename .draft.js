@@ -1,70 +1,23 @@
-import IntroScene from '$lib/components/scenes/IntroScene.svelte';
-import WaterScene from '$lib/components/scenes/WaterScene.svelte';
 const sections = [
-	// {
-	// 	title: 'An *in vivo* spatial microscope for the future of medicine.',
-	// 	content: [
-	// 		'What if there was a way to examine *living tissues* inside our bodies?',
-	// 		'MRI scans can non-invasively reveal hidden structures but lack the resolution to positively discern specific tissues.',
-	// 		"Microscopes have opened the door to countless biomedical advances, but they've never been able to see inside a living person.",
-	// 		"We're building one that **can**."
-	// 	],
-	// 	scene: IntroScene,
-	// 	triggers: {
-	// 		'living tissues': {
-	// 			event: 'revealEvent',
-	// 			detail: 'Living tissues are the building blocks of life.'
-	// 		},
-	// 		'biomedical advances': {
-	// 			event: 'biomedicalEvent',
-	// 			detail: 'Biomedical advances have revolutionized healthcare.'
-	// 		}
-	// 	}
-	// },
 	{
-		title: 'In vivo spatial microscope',
+		title: 'An _in vivo_ spatial microscope for the future of medicine.',
 		content: [
 			'What if there was a way to examine *living tissues* inside our bodies?',
 			'MRI scans can non-invasively reveal hidden structures but lack the resolution to positively discern specific tissues.',
 			"Microscopes have opened the door to countless biomedical advances, but they've never been able to see inside a living person.",
 			"We're building one that **can**."
 		],
+		scene: IntroScene,
 		triggers: {
-			'MRI scans': {
-				event: 'mriScansEvent',
-				detail:
-					'RGB blurs desaturate to different extents over 250ms, transforming into intersecting see-through meshes with grayscale edges and glowing white vertices.'
+			'living tissues': {
+				event: 'revealEvent',
+				detail: 'Living tissues are the building blocks of life.'
 			},
-			'microscopes have': {
-				event: 'microscopesHaveEvent',
-				detail:
-					'RGB blur opacity fades to zero while histology sample becomes visible, with opacity ramping from 0 to 1 over 100ms.'
-			},
-			'one that **can**': {
-				event: 'canEvent',
-				detail:
-					'A double-sided plane group using logo_white.svg as a reverse alpha mask appears over the entire scene and zooms very quickly towards the camera over 100ms.'
+			'biomedical advances': {
+				event: 'biomedicalEvent',
+				detail: 'Biomedical advances have revolutionized healthcare.'
 			}
-		},
-		elements: {
-			rgbBlurs: {
-				description:
-					'Three high-poly deformed spheres with boxblur pass, animated with vertex and fragment shaders to look slightly alive. Initially at the center of the screen.'
-			},
-			histologySample: {
-				description:
-					'Circularly-cropped histology bitmap with diffuse overlay, box blur, and color manipulation in postprocessing. Animated using time-varying varyings in shaders. Initially invisible.'
-			},
-			logoMask: {
-				description:
-					'Double-sided plane group using logo_white.svg as a reverse alpha mask. Initially invisible.'
-			}
-		},
-		sceneSetup:
-			'White background ||| Three RGB blurs centered ||| Invisible histology sample prepared ||| Invisible logo mask prepared',
-		progressAnimations:
-			'RGB blurs lose opacity (0 to 0.6 progress) ||| Whole scene zooms in slightly (0 to 0.6 progress) ||| Histology sample fills the screen (0 to 0.6 progress)',
-		scene: IntroScene
+		}
 	},
 
 	{
@@ -103,7 +56,6 @@ const sections = [
 				ongoingAnimations: []
 			}
 		},
-		scene: WaterScene,
 		sceneDescription: 'Generated scene description would go here.',
 		progressAnimations: [],
 		clarificationNeeded: [
