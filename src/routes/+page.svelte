@@ -87,7 +87,7 @@
 				<svelte:component this={TextSection} {section} sectionIndex={index} />
 			{/each}
 		</div>
-		<div class="w-full md:w-1/2 h-screen md:ml-[50%] fixed">
+		<div class="w-full md:w-1/2 h-screen md:ml-[50%] fixed -z-10">
 			<Canvas>
 				<T.OrthographicCamera makeDefault position={[0, 0, 10]} zoom={100} />
 				<T.DirectionalLight position={[5, 5, 5]} intensity={1} />
@@ -110,7 +110,7 @@
 		</div>
 		<div class="w-full flex flex-col items-center fixed bg-black bg-opacity-50">
 			<h1
-				class="text-5xl font-bold mb-4 text-white gridlite"
+				class="text-6xl font-bold mb-4 text-white gridlite"
 				style="--font-wght-g: {Math.floor(50 + progress.currentProgress * 400)};"
 			>
 				{@html currentSection.title}
