@@ -50,10 +50,15 @@
 
 	$: activeTokenIndex = Math.floor(progress * totalTokens);
 
+	const triggerBuffer = 5;
+
 	$: {
 		if (active) {
 			triggerRanges.forEach((range) => {
-				if (activeTokenIndex >= range.start && activeTokenIndex <= range.end) {
+				if (
+					activeTokenIndex >= range.start - triggerBuffer &&
+					activeTokenIndex <= range.end + triggerBuffer
+				) {
 					triggerStore.addTrigger(range.event, range.phrase);
 				} else {
 					triggerStore.removeTrigger(range.event);

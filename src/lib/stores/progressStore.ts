@@ -1,50 +1,100 @@
+// src/lib/stores/progressStore.ts
 import { writable } from 'svelte/store';
+import { browser } from '$app/environment';
+import { throttle } from 'lodash-es';
+import sections from '$lib/sections';
 
-export const progressStore = writable({
-	overallProgress: 0,
-	currentSectionIndex: 0,
-	currentProgress: 0,
-	totalSections: 1
-});
+type ProgressData = {
+	overallProgress: number;
+	currentSectionIndex: number;
+	currentProgress: number;
+	totalSections: number;
+	scroll: { x: number; y: number };
+};
 
-let lastUpdateTime = 0;
-const fps = 120;
-const fpsInterval = 1000 / fps;
-
-export function updateProgress(
+function calculateProgress(
 	scrollTop: number,
 	scrollHeight: number,
-	totalSections: number,
 	windowHeight: number
-) {
-	const currentTime = performance.now();
-	if (currentTime - lastUpdateTime >= fpsInterval) {
-		const overallProgress = Math.min(Math.max(scrollTop / (scrollHeight - windowHeight), 0), 1);
-		const sectionDuration = 1 / totalSections;
-		const currentSectionIndex = Math.min(
-			Math.floor(overallProgress / sectionDuration),
-			totalSections - 1
-		);
-		const currentProgress =
-			(overallProgress - currentSectionIndex * sectionDuration) / sectionDuration;
+): ProgressData {
+	const totalSections = sections.length;
+	const denominator = Math.max(scrollHeight - windowHeight, 1);
+	const overallProgress = Math.min(Math.max(scrollTop / denominator, 0), 1);
 
-		progressStore.set({
-			overallProgress,
-			currentSectionIndex,
-			currentProgress,
-			totalSections
-		});
+	const sectionDuration = 1 / totalSections;
+	const currentSectionIndex = Math.min(
+		Math.floor(overallProgress / sectionDuration),
+		totalSections - 1
+	);
+	const currentProgress =
+		sectionDuration !== 0
+			? (overallProgress - currentSectionIndex * sectionDuration) / sectionDuration
+			: 0;
 
-		lastUpdateTime = currentTime;
-	}
+	return {
+		overallProgress: isNaN(overallProgress) ? 0 : overallProgress,
+		currentSectionIndex: isNaN(currentSectionIndex) ? 0 : currentSectionIndex,
+		currentProgress: isNaN(currentProgress) ? 0 : currentProgress,
+		totalSections,
+		scroll: { x: window.scrollX, y: scrollTop }
+	};
 }
+
+function createProgressStore() {
+	const { subscribe, set } = writable<ProgressData>({
+		overallProgress: 0,
+		currentSectionIndex: 0,
+		currentProgress: 0,
+		totalSections: sections.length,
+		scroll: { x: 0, y: 0 }
+	});
+	if (browser) {
+		const update = throttle(() => {
+			set(
+				calculateProgress(window.scrollY, document.documentElement.scrollHeight, window.innerHeight)
+			);
+		}, 1000 / 120);
+
+		window.addEventListener('scroll', update);
+		window.addEventListener('resize', update);
+		window.addEventListener('load', update);
+
+		update();
+
+		return {
+			subscribe,
+			forceUpdate: () => {
+				if (browser) {
+					set(
+						calculateProgress(
+							window.scrollY,
+							document.documentElement.scrollHeight,
+							window.innerHeight
+						)
+					);
+				}
+			},
+			destroy: () => {
+				window.removeEventListener('scroll', update);
+				window.removeEventListener('resize', update);
+			}
+		};
+	}
+
+	return {
+		subscribe,
+		forceUpdate: () => {}
+	};
+}
+
+export const progressStore = createProgressStore();
 
 export function calculateVisibility(
 	sceneIndex: number,
 	sceneDuration: number,
 	overallProgress: number,
 	totalSections: number
-) {
+): number {
 	const sceneStart = sceneIndex / totalSections;
 	const sceneEnd = (sceneIndex + sceneDuration) / totalSections;
 

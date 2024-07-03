@@ -1,4 +1,6 @@
 import { writable } from 'svelte/store';
+import { progressStore } from './progressStore';
+import { browser } from '$app/environment';
 
 type TriggerInfo = {
 	event: string;
@@ -10,11 +12,15 @@ function createTriggerStore() {
 
 	return {
 		subscribe,
-		addTrigger: (event: string, phrase: string) =>
+		addTrigger: (event: string, phrase: string) => {
 			update((triggers) => {
 				triggers.set(event, { event, phrase });
 				return triggers;
-			}),
+			});
+			if (browser) {
+				progressStore.forceUpdate();
+			}
+		},
 		removeTrigger: (event: string) =>
 			update((triggers) => {
 				triggers.delete(event);
