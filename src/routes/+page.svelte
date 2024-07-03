@@ -1,8 +1,10 @@
 <script lang="ts">
+	import Toasts from '$lib/components/Toasts.svelte';
 	import { onMount } from 'svelte';
 	import { Canvas, T } from '@threlte/core';
+	import SceneWrapper from '$lib/components/SceneWrapper.svelte';
 	import TextSection from '$lib/components/TextSection.svelte';
-	import { progressStore, updateProgress } from '$lib/stores/progressStore';
+	import { progressStore, updateProgress, calculateVisibility } from '$lib/stores/progressStore';
 	import { triggerStore } from '$lib/stores/triggerStore';
 
 	import sections from '$lib/sections';
@@ -20,7 +22,7 @@
 					.slice(2, -2)
 					.split(/(\s+)/)
 					.forEach((word) => {
-						if (word) tokens.push({ text: word, style: 'font-bold' });
+						if (word) tokens.push({ text: word, style: 'caption-strong' });
 					});
 			} else if (chunk.startsWith('*') && chunk.endsWith('*')) {
 				// Italic text
@@ -28,7 +30,7 @@
 					.slice(1, -1)
 					.split(/(\s+)/)
 					.forEach((word) => {
-						if (word) tokens.push({ text: word, style: 'italic' });
+						if (word) tokens.push({ text: word, style: 'caption-em' });
 					});
 			} else {
 				// Normal text
@@ -74,8 +76,10 @@
 	// $: console.log(
 	// 	`current: ${$progressStore.currentProgress} overall: ${$progressStore.overallProgress} `
 	// );
+	const sceneDuration = 1;
 </script>
 
+<Toasts />
 <div class="flex flex-col md:flex-row min-h-screen">
 	<div class="w-full md:h-screen md:w-1/2 px-[5%] mb-8 md:mb-0">
 		{#each processedSections as section, index (section.title)}
@@ -87,9 +91,20 @@
 			<T.OrthographicCamera makeDefault position={[0, 0, 10]} zoom={100} />
 			<T.DirectionalLight position={[5, 5, 5]} intensity={1} />
 			<T.AmbientLight intensity={0.5} />
-			{#each sections as section, i}
-				<svelte:component this={section.scene} sceneIndex={i} />
-			{/each}
+			<SceneWrapper>
+				{#each sections as section, sceneIndex}
+					<svelte:component
+						this={section.scene}
+						sceneProgress={$progressStore.currentProgress}
+						visibility={calculateVisibility(
+							sceneIndex,
+							sceneDuration,
+							$progressStore.overallProgress,
+							$progressStore.totalSections
+						)}
+					/>
+				{/each}
+			</SceneWrapper>
 		</Canvas>
 	</div>
 	<div class="w-full flex flex-col items-center fixed bg-black bg-opacity-50">

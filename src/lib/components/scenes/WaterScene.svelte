@@ -3,41 +3,17 @@
 	import { useTexture } from '@threlte/extras';
 	import { AdditiveBlending, Vector3 } from 'three';
 	import { spring } from 'svelte/motion';
-	import { progressStore } from '$lib/stores/progressStore';
 	import { onMount, onDestroy } from 'svelte';
 
-	export let sceneIndex = 1; // Assuming WaterScene is the second scene
+	export let sceneProgress: number;
+	export let visibility: number;
 
-	const visibility = spring(0);
 	const waterOpacity = spring(0);
 	const waterScale = spring(1);
 	const waterColor = spring({ r: 0, g: 0.5, b: 1 });
 
 	let time = 0;
 	let animationFrame: number;
-
-	$: {
-		const { overallProgress, totalSections } = $progressStore;
-		const sceneDuration = 1 / totalSections;
-		const sceneStart = sceneIndex * sceneDuration;
-		const sceneEnd = (sceneIndex + 1) * sceneDuration;
-
-		if (overallProgress < sceneStart || overallProgress > sceneEnd) {
-			visibility.set(0);
-		} else {
-			const sceneProgress = (overallProgress - sceneStart) / sceneDuration;
-			visibility.set(1 - Math.abs(2 * sceneProgress - 1));
-		}
-
-		const localProgress = (overallProgress - sceneStart) / sceneDuration;
-		waterOpacity.set(localProgress * 10);
-		waterScale.set(1 + localProgress * 0.5);
-		waterColor.set({
-			r: 0 + localProgress * 0.2,
-			g: 0.5 + localProgress * 0.3,
-			b: 1 - localProgress * 0.2
-		});
-	}
 
 	function animate() {
 		time += 0.01;
@@ -53,9 +29,19 @@
 			cancelAnimationFrame(animationFrame);
 		}
 	});
+
+	$: {
+		waterOpacity.set(sceneProgress * 10);
+		waterScale.set(1 + sceneProgress * 0.5);
+		waterColor.set({
+			r: 0 + sceneProgress * 0.2,
+			g: 0.5 + sceneProgress * 0.3,
+			b: 1 - sceneProgress * 0.2
+		});
+	}
 </script>
 
-<T.Group visible={$visibility > 0}>
+<T.Group visible={visibility !== 0}>
 	<T.Mesh scale={[$waterScale, $waterScale, 1]}>
 		<T.PlaneGeometry args={[20, 20, 32, 32]} />
 		<T.ShaderMaterial
@@ -64,7 +50,7 @@
 			uniforms={{
 				uTime: { value: time },
 				uColor: { value: new Vector3($waterColor.r, $waterColor.g, $waterColor.b) },
-				uOpacity: { value: $waterOpacity * $visibility }
+				uOpacity: { value: $waterOpacity }
 			}}
 			vertexShader={`
                 uniform float uTime;
@@ -98,7 +84,7 @@
 				metalness={0.9}
 				roughness={0.1}
 				transparent
-				opacity={$waterOpacity * $visibility}
+				opacity={$waterOpacity}
 			/>
 		{/await}
 	</T.Mesh>

@@ -25,21 +25,51 @@
 }
 @layer components {
 }
+@layer utilities {
+	.gridlite {
+		font-variation-settings:
+			'wght' var(--font-wght-g),
+			'elsh' var(--font-elsh-g);
+	}
+	.halvar {
+		font-variation-settings:
+			'wght' var(--font-wght-h),
+			'wdth' var(--font-wdth-h),
+			'slnt' var(--font-slnt-h);
+	}
+	.caption {
+		/* 
+			Halvar font variation settings:
+			wght (Weight): 100 to 900
+			wdth (Width): 75 to 125
+			slnt (Slant): 0 to 24
+		*/
+		font-variation-settings:
+			'wght' 400,
+			'wdth' 125,
+			'slnt' 0;
+		letter-spacing: 0em;
+		font-size: 1.25rem;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		.caption-em {
+			font-variation-settings:
+				'wght' 400,
+				'wdth' 125,
+				'slnt' 12;
+		}
+		.caption-strong {
+			font-variation-settings:
+				'wght' 700,
+				'wdth' 125,
+				'slnt' 12;
+		}
+	}
+}
 :root {
 	--font-wght-g: 300;
 	--font-elsh-g: 4;
 	--font-wght-h: 400;
 	--font-wdth-h: 100;
 	--font-slnt-h: 0;
-}
-.gridlite {
-	font-variation-settings:
-		'wght' var(--font-wght-g),
-		'elsh' var(--font-elsh-g);
-}
-.halvar {
-	font-variation-settings:
-		'wght' var(--font-wght-h),
-		'wdth' var(--font-wdth-h),
-		'slnt' var(--font-slnt-h);
 }

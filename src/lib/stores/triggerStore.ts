@@ -1,14 +1,27 @@
 import { writable } from 'svelte/store';
 
-const createTriggerStore = () => {
-	const { subscribe, set, update } = writable<string | null>(null);
+type TriggerInfo = {
+	event: string;
+	phrase: string;
+};
+
+function createTriggerStore() {
+	const { subscribe, update } = writable<Map<string, TriggerInfo>>(new Map());
 
 	return {
 		subscribe,
-		addTrigger: (event: string) => set(event),
-		removeTrigger: () => set(null),
-		reset: () => set(null)
+		addTrigger: (event: string, phrase: string) =>
+			update((triggers) => {
+				triggers.set(event, { event, phrase });
+				return triggers;
+			}),
+		removeTrigger: (event: string) =>
+			update((triggers) => {
+				triggers.delete(event);
+				return triggers;
+			}),
+		reset: () => update(() => new Map())
 	};
-};
+}
 
 export const triggerStore = createTriggerStore();

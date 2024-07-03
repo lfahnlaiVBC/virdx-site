@@ -38,3 +38,20 @@ export function updateProgress(
 		lastUpdateTime = currentTime;
 	}
 }
+
+export function calculateVisibility(
+	sceneIndex: number,
+	sceneDuration: number,
+	overallProgress: number,
+	totalSections: number
+) {
+	const sceneStart = sceneIndex / totalSections;
+	const sceneEnd = (sceneIndex + sceneDuration) / totalSections;
+
+	if (overallProgress < sceneStart || overallProgress > sceneEnd) {
+		return 0;
+	} else {
+		const localProgress = (overallProgress - sceneStart) / (sceneEnd - sceneStart);
+		return 1 - Math.abs(2 * localProgress - 1);
+	}
+}

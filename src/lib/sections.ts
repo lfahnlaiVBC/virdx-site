@@ -11,8 +11,14 @@ const sections = [
 		],
 		scene: IntroScene,
 		triggers: {
-			'living tissues': 'revealEvent',
-			'biomedical advances': 'biomedicalEvent'
+			'living tissues': {
+				event: 'revealEvent',
+				detail: 'Living tissues are the building blocks of life.'
+			},
+			'biomedical advances': {
+				event: 'biomedicalEvent',
+				detail: 'Biomedical advances have revolutionized healthcare.'
+			}
 		}
 	},
 	{
@@ -25,8 +31,14 @@ const sections = [
 		],
 		scene: WaterScene,
 		triggers: {
-			'billion billion': 'waterEvent',
-			'diffusion signature': 'diffusionEvent'
+			'billion billion': {
+				event: 'waterEvent',
+				detail: 'Water is essential for all known forms of life.'
+			},
+			'diffusion signature': {
+				event: 'diffusionEvent',
+				detail: 'Diffusion signatures help identify tissue types.'
+			}
 		}
 	},
 	{
