@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require('tailwindcss/plugin');
 import { gridlite, halvar } from './static/fonts/metrics.js';
 
 export default {

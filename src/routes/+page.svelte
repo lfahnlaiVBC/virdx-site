@@ -1,3 +1,6 @@
+<!-- TODO: gsap for layout anims (wFLIP, scrolltrigger) -->
+<!-- TODO: comlink for webworker calculations -->
+<!-- TODO: change trigger abstraction to just map to a progress value? or use inview/intersectionobserver depending on number of triggers -->
 <script lang="ts">
 	import Toasts from '$lib/components/Toasts.svelte';
 	import { onMount } from 'svelte';
@@ -80,7 +83,7 @@
 {#if isLoading}
 	<div>Loading...</div>
 {:else}
-	<Toasts />
+	<!-- <Toasts /> -->
 	<div class="flex flex-col md:flex-row min-h-screen">
 		<div class="w-full md:h-screen md:w-1/2 px-[5%] mb-8 md:mb-0">
 			{#each processedSections as section, index (index)}
@@ -88,6 +91,12 @@
 			{/each}
 		</div>
 		<div class="w-full md:w-1/2 h-screen md:ml-[50%] fixed -z-10">
+			<h1
+				class="w-full text-6xl font-bold text-center text-black gridlite absolute my-10"
+				style="--font-wght-g: {Math.floor(400 - progress.currentProgress * 300)};"
+			>
+				{@html currentSection.title}
+			</h1>
 			<Canvas>
 				<T.OrthographicCamera makeDefault position={[0, 0, 10]} zoom={100} />
 				<T.DirectionalLight position={[5, 5, 5]} intensity={1} />
@@ -108,19 +117,12 @@
 				</SceneWrapper>
 			</Canvas>
 		</div>
-		<div class="w-full flex flex-col items-center fixed bg-black bg-opacity-50">
-			<h1
-				class="text-6xl font-bold mb-4 text-white gridlite"
-				style="--font-wght-g: {Math.floor(50 + progress.currentProgress * 400)};"
-			>
-				{@html currentSection.title}
-			</h1>
-
+		<div class="w-full flex flex-col items-center fixed bottom-0">
 			<div class="w-full flex flex-row justify-around items-center">
-				<h2 class="text-xl font-bold text-white my-auto">
+				<h2 class="text-sm font-light text-black my-2">
 					scene: {(progress.currentProgress * 100).toFixed(1)}%
 				</h2>
-				<h2 class="text-xl font-bold text-white my-auto">
+				<h2 class="text-sm font-light text-black my-2">
 					page: {(progress.overallProgress * 100).toFixed(1)}%
 				</h2>
 			</div>

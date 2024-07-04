@@ -22,7 +22,7 @@ const sections = [
 	// 	}
 	// },
 	{
-		title: 'In vivo spatial microscope',
+		title: 'An *in vivo* spatial microscope for the future of medicine.',
 		content: [
 			'What if there was a way to examine *living tissues* inside our bodies?',
 			'MRI scans can non-invasively reveal hidden structures but lack the resolution to positively discern specific tissues.',

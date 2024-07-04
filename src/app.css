@@ -27,6 +27,7 @@
 }
 @layer utilities {
 	.gridlite {
+		text-transform: capitalize;
 		font-variation-settings:
 			'wght' var(--font-wght-g),
 			'elsh' var(--font-elsh-g);
@@ -43,6 +44,13 @@
 			wght (Weight): 100 to 900
 			wdth (Width): 75 to 125
 			slnt (Slant): 0 to 24
+		*/
+		/* 
+			Gridlite font variation settings:
+			wght (Weight): 1 to 900
+			back (background between glyphs): 1-900
+			rect (rectangle minus background minus glyphs): 1-900
+			elsh (element shape): 1 (horizontal) 2 (vertical) 3 (square) 4(circle)
 		*/
 		font-variation-settings:
 			'wght' 400,
