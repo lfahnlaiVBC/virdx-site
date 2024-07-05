@@ -9,6 +9,9 @@
 	import TextSection from '$lib/components/TextSection.svelte';
 	import { progressStore, calculateVisibility } from '$lib/stores/progressStore';
 	import { triggerStore } from '$lib/stores/triggerStore';
+	import PostProcessingEffect from '$lib/components/PostProcessingEffect.svelte';
+	import { DotScreenEffect, BlendFunction } from 'postprocessing';
+	import Renderer from '$lib/components/Renderer.svelte';
 
 	import sections from '$lib/sections';
 	import Team from '$lib/components/Team.svelte';
@@ -77,6 +80,18 @@
 		isLoading = false;
 	});
 
+	let dotScreenParams = {
+		angle: 0.5,
+		scale: 0.1,
+		disable: false
+	};
+
+	$: {
+		// Update dot screen parameters based on scroll progress
+		dotScreenParams.angle = 0.5 + progress.currentProgress * Math.PI;
+		dotScreenParams.scale = 1.0 + progress.overallProgress * 3.0;
+	}
+
 	const sceneDuration = 1;
 </script>
 
@@ -98,6 +113,7 @@
 				{@html currentSection.title}
 			</h1>
 			<Canvas>
+				<Renderer {...dotScreenParams} />
 				<T.OrthographicCamera makeDefault position={[0, 0, 10]} zoom={100} />
 				<T.DirectionalLight position={[5, 5, 5]} intensity={1} />
 				<T.AmbientLight intensity={0.5} />

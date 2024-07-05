@@ -8,9 +8,12 @@
 		Color,
 		DoubleSide,
 		AdditiveBlending,
-		MeshPhysicalMaterial
+		MeshPhysicalMaterial,
+		Group,
+		Box3
 	} from 'three';
 	import createLensGeometry from '$lib/utils/createLensGeometry';
+	let microscopeGroup: Group;
 
 	export let sceneProgress: number;
 	export let visibility: number;
@@ -78,8 +81,19 @@
 	// 		color: new Color().setHSL(Math.random() * 0.1 + 0.6, 1, 0.5)
 	// 	});
 	// }
-	// Biconvex lens
 	const biconvexGeometry = createLensGeometry(1, 0.3, 0.2, 0.2, 32);
+	function adjustPivot(group: Group) {
+		const offset = new Vector3(0, 2 * microscopeSeparation, 0);
+		console.log(offset);
+		group.position.add(offset);
+		group.children.forEach((child) => {
+			child.position.sub(offset);
+		});
+	}
+	$: if (microscopeGroup && microscopeSeparation) {
+		adjustPivot(microscopeGroup);
+	}
+	let composer;
 </script>
 
 <T.Group visible={visibility !== 0}>
@@ -116,7 +130,7 @@
 		/>
 	</T.Mesh>
 
-	<T.Group position={[0, 0, 0]} rotation={[0, 0, 0]}>
+	<T.Group position={[0, 0, 0]} rotation={[0, 0, 0]} bind:ref={microscopeGroup}>
 		{#each Array(5) as _, i}
 			<!-- <T.Mesh position={[0, i * microscopeSeparation, 0]}>
 				<T.CylinderGeometry args={[0.5, 0.5, 0.1, 32]} />
@@ -125,7 +139,7 @@
 			<T.Mesh
 				geometry={biconvexGeometry}
 				position={[0, i * microscopeSeparation, 0]}
-				rotation={[3 * sceneProgress, 0, 0]}
+				rotation={[-0.25 * sceneProgress, 0, 0]}
 			>
 				<T.MeshPhysicalMaterial
 					color={0xffffff}
@@ -140,10 +154,10 @@
 	</T.Group>
 
 	<!-- Histology Slide -->
-	<T.Mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
+	<!-- <T.Mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
 		<T.PlaneGeometry args={[2, 2]} />
 		<T.MeshStandardMaterial map={$histologyTexture} transparent opacity={sceneProgress} />
-	</T.Mesh>
+	</T.Mesh> -->
 
 	<!-- Data Pulses -->
 	<!-- {#each dataPulses as pulse}
