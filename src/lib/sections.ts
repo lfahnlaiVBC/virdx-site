@@ -1,5 +1,6 @@
 import IntroScene from '$lib/components/scenes/IntroScene.svelte';
 import WaterScene from '$lib/components/scenes/WaterScene.svelte';
+import HowScene from '$lib/components/scenes/HowScene.svelte';
 const sections = [
 	// {
 	// 	title: 'An *in vivo* spatial microscope for the future of medicine.',
@@ -150,7 +151,8 @@ const sections = [
 			'**Next-Generation MRI sensing**: Proprietary MRI protocols are optimized for machine learning and engineered for broad compatibility, allowing the vast network of existing MRI scanners to be upgraded into real-world histological sensors.',
 			'**Biophysical simulation platform**: Groundbreaking biophysical models simulate the distinct MRI profiles of different tissues. Diffusion-aware classifier models resolve MRI signatures into detailed tissue maps that reveal salient histological features at the mesoscopic scale.',
 			'**Integrated Ground Truth Framework**: Fusing 3D bioengineering and next-generation computational registration, our patented ground truth pipeline achieves superior model accuracy and reliability by ensuring perfect spatial alignment between histopathology and MRI datasets.'
-		]
+		],
+		scene: HowScene
 	},
 	{
 		title: 'Core Application: Non-Invasive Prostate Cancer Diagnostics',

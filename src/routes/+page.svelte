@@ -92,7 +92,7 @@
 		</div>
 		<div class="w-full md:w-1/2 h-screen md:ml-[50%] fixed -z-10">
 			<h1
-				class="w-full text-6xl font-bold text-center text-black gridlite absolute my-10"
+				class="w-full text-5xl text-center text-black gridlite absolute my-10"
 				style="--font-wght-g: {Math.floor(400 - progress.currentProgress * 300)};"
 			>
 				{@html currentSection.title}
